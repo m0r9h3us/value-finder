@@ -132,7 +132,7 @@ const SelectorItem = ({ onClick, item, hoverColor }: ISelectorItemProps) => {
   });
 
   return (
-    <li className={className} key={item.id} onClick={onClick.bind(this, item)}>
+    <li className={className} key={item.id} onClick={onClick.bind(null, item)}>
       {item.title}
     </li>
   );
