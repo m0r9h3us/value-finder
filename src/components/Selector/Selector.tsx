@@ -69,7 +69,7 @@ export const Selector = ({
   };
   const height = absoluteHeight ? "h-screen" : "h-full";
   return (
-    <div className={`${height} h-full flex p-2 space-x-2 bg-primary-500`}>
+    <div className={`flex flex-grow p-2 space-x-2 bg-primary-500`}>
       <div
         className="flex flex-col flex-grow 
                     md:min-w-48
@@ -119,7 +119,7 @@ interface ISelectorItemProps {
 
 const SelectorItem = ({ onClick, item, hoverColor }: ISelectorItemProps) => {
   const className = classNames({
-    "flex flex-grow justify-center px-4 py-2 m-0.5 rounded-md": true,
+    "flex flex-grow justify-center px-4 py-2 m-0.5 rounded-md mr-2": true,
     "bg-primary-600 text-primary-400 font-medium": true,
     "hover:text-primary-800": true,
     "hover:bg-green-400": hoverColor === "green",

@@ -4,9 +4,9 @@ import { Header } from "./Header/Header";
 
 export const Layout: FC<{}> = ({ children }) => {
   return (
-    <>
-      <Header />
-      <main>{children}</main>
-    </>
+    <div className="">
+      <Header height={16}/>
+      <main className="">{children}</main>
+    </div>
   );
 };
