@@ -78,7 +78,7 @@ export const Selector = ({
         {" "}
         <h1 className="font-bold p-2 rounded-md text-primary-400">My Values</h1>
         <ul
-          className="flex-col items-center overflow-y-auto"
+          className="grid grid-cols-1 overflow-y-auto"
         >
           {chosen.map((item: IValue) => (
             <SelectorItem
@@ -96,7 +96,7 @@ export const Selector = ({
                       bg-primary-700 
                       p-2 rounded-md "
       >
-        <h1 className="font-bold p-2 text-primary-400">Possible Values</h1>
+        <h1 className="font-bold p-2 text-primary-400">All Values</h1>
         <ul
           className="grid
                       grid-cols-1 md:grid-cols-4 lg:grid-cols-7
