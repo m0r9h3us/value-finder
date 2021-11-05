@@ -1,0 +1,15 @@
+.column {
+  @apply flex flex-col items-center flex-grow p-1 rounded-md bg-primary-700;
+}
+
+.column h1 {
+  @apply p-2 font-bold text-primary-400 whitespace-nowrap;
+}
+
+.list__onecol {
+  @apply grid grid-cols-1 overflow-x-hidden overflow-y-auto;
+}
+
+.list__multicol {
+  @apply grid grid-cols-1 overflow-x-hidden overflow-y-auto md:grid-cols-4 lg:grid-cols-7;
+}
