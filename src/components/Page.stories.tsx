@@ -1,11 +1,11 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Page } from "./Page";
+// import * as HeaderStories from "./Layout/Header/Header.stories";
 
-import { Page } from './Page';
-import * as HeaderStories from './Layout/Header/Header.stories';
 
 export default {
-  title: 'Example/Page',
+  title: "Example/Page",
   component: Page,
 } as ComponentMeta<typeof Page>;
 

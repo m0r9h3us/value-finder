@@ -1,8 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { Button } from './Button';
 
-import "./Button.css"
-
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Partials/Button',
@@ -28,14 +26,21 @@ Secondary.args = {
   label: 'Button',
 };
 
+export const Small = Template.bind({});
+Small.args = {
+  size: 'sm',
+  label: 'Button',
+};
+
+export const Medium = Template.bind({});
+Medium.args = {
+  size: 'md',
+  label: 'Button',
+};
+
 export const Large = Template.bind({});
 Large.args = {
   size: 'lg',
   label: 'Button',
 };
 
-export const Small = Template.bind({});
-Small.args = {
-  size: 'sm',
-  label: 'Button',
-};

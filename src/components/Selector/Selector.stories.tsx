@@ -1,8 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { Selector } from './Selector';
 import ValueList from '../../values.json'
+import '../../index.css';
 
 export default {
   title: 'Prioritizer/Selector',

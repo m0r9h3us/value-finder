@@ -1,32 +1,12 @@
 import React from "react";
-import classNames from "classnames";
-
-
-const buttonClasses = (
-  size: "sm" | "md" | "lg" | "xl" | undefined,
-  primary: boolean
-) =>
-  classNames({
-    "bg-primary-600 rounded-sm p-4": true,
-    //"dark:bg-gray-800": true,
-    "bg-primary-600": primary,
-    "bg-secondary-600": !primary,
-
-    "text-xl": !size || size === "xl",
-    "text-lg": size === "lg",
-    "text-base": size === "md",
-    "text-sm": size === "sm",
-  });
+import cn from "classnames";
+import styles from "./Button.module.css";
 
 interface ButtonProps {
   /**
    * Is this the principal call to action on the page?
    */
   primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
   /**
    * How large should the button be?
    */
@@ -47,14 +27,22 @@ interface ButtonProps {
 export const Button = ({
   primary = false,
   size = "md",
-  backgroundColor,
   label,
   ...props
 }: ButtonProps) => {
+  console.log(`${styles.btn}-${size}`);
+
   return (
-    <button type="button" className={buttonClasses(size, primary)} {...props}>
+    <button
+      type="button"
+      className={cn(
+        styles.btn,
+        styles[`${primary ? "primary" : "secondary"}`],
+        styles[`${size}`]
+      )}
+      {...props}
+    >
       {label}
     </button>
   );
 };
-//buttonClasses(size, primary)

@@ -1,0 +1,26 @@
+@layer components {
+  .btn {
+    @apply rounded-md;
+  }
+
+  .primary {
+    @apply bg-primary-600;
+  }
+
+  .secondary {
+    @apply bg-secondary-600;
+  }
+
+  .sm {
+    @apply text-sm p-1;
+  }
+  .md {
+    @apply text-base p-2;
+  }
+  .lg {
+    @apply text-lg p-3;
+  }
+  .xl {
+    @apply text-xl p-4;
+  }
+}
