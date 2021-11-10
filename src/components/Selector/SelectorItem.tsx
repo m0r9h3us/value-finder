@@ -2,7 +2,7 @@ import React from "react";
 import cn from "classnames";
 import styles from "./SelectorItem.module.css";
 
-import { IValue } from "../../values.json";
+import { IValue } from "../../types";
 
 export interface ISelectorItemProps {
   item: IValue;
@@ -11,11 +11,10 @@ export interface ISelectorItemProps {
 }
 
 const SelectorItem = ({ onClick, item, hoverColor }: ISelectorItemProps) => {
-  const liStyle = cn(
-    styles.item,
-    { "hover:bg-green-400": hoverColor === "green" },
-    { "hover:bg-red-400": hoverColor === "red" }
-  );
+  const liStyle = cn(styles.item, item.selected ? styles.item__selected : "", {
+    "hover:bg-green-400": hoverColor === "green",
+    "hover:bg-red-400": hoverColor === "red",
+  });
 
   return (
     <li key={item.id} className={liStyle} onClick={onClick.bind(null, item)}>

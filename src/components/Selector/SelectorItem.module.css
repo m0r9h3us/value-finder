@@ -8,6 +8,20 @@
     text-primary-400
     font-bold
     hover:text-primary-800
+    hover:bg-green-400
+    cursor-pointer
+}
+
+.item__selected {
+  @apply flex 
+    flex-grow 
+    justify-center 
+    px-1 py-2 m-0.5 
+    rounded-md
+    bg-yellow-400
+    text-primary-500
+    font-bold
+    hover:text-primary-800
     hover:bg-red-400
     cursor-pointer
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import cn from "classnames";
 import SelectorItem from "./SelectorItem";
-import { IValue } from "../../values.json";
+import { IValue } from "../../types";
 
-import styles from "./SelectorColumn.module.css";
+import styles from "./SelectorList.module.css";
 
 export interface ISelectorColumn {
   title: string;

@@ -8,7 +8,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     backgroundColor: { control: "color" },
-    onClick: { action: 'clicked' }
+    onClick: { action: "clicked" },
   },
 } as ComponentMeta<typeof SelectorItem>;
 
@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof SelectorItem> = (args) => (
 export const HoverGreen = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 HoverGreen.args = {
-  item: { id: "1", title: "ITEM" },
+  item: { id: "1", title: "ITEM", selected: false },
   hoverColor: "green",
 };
 
@@ -28,6 +28,6 @@ export const HoverRed = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
 HoverRed.args = {
-  item: { id: "1", title: "ITEM" },
+  item: { id: "1", title: "ITEM", selected: false },
   hoverColor: "red",
 };

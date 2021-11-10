@@ -1,3 +1,4 @@
+import { IValue } from "./types";
 const data = {
   "values": [
     "Acceptance",
@@ -225,11 +226,6 @@ const data = {
   ]
 }
 
-export interface IValue {
-  id: string,
-  title: string,
-}
-
 function guidGenerator() {
   var S4 = function() {
      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -238,7 +234,7 @@ function guidGenerator() {
 }
 
 const ValueList: IValue[] = data.values.map((item: string) => {
-  return {id: guidGenerator(), title: item};
+  return {id: guidGenerator(), title: item, selected: false};
 })
 
 export default ValueList

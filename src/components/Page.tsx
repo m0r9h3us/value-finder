@@ -17,7 +17,7 @@ export const Page = ({
   onCreateAccount,
 }: PageProps) => (
   <article>
-    <Layout>
+    <Layout sidebarIsVisible={true}>
       <section>
         <h2>Pages in Storybook</h2>
         <p>

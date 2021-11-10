@@ -1,0 +1,6 @@
+.header {
+  @apply fixed top-0 flex w-screen p-2 pb-0 bg-primary-500;
+}
+.content {
+  @apply flex items-center justify-between flex-grow p-1 rounded-md bg-base-dark;
+}

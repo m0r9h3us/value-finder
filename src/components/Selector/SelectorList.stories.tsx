@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import SelectorColumn from "./SelectorColumn";
+import SelectorColumn from "./SelectorList";
 import ValueList from "../../values.json";
+import ValueContextProvider from "../../context/ValueContextProvider" 
 //import "../../index.css";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -9,9 +10,15 @@ export default {
   component: SelectorColumn,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: "color" },
-    onClick: { action: 'clicked' }
+    onClick: { action: "clicked" },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ margin: "3em" }}>
+        <Story />
+      </div>
+    ),
+  ],
 } as ComponentMeta<typeof SelectorColumn>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
@@ -24,9 +31,10 @@ export const SmallList = Template.bind({});
 SmallList.args = {
   title: "Small List",
   content: [
-      {"id": "1", "title": "FIRST ITEM"},
-      {"id": "2", "title": "SECOND ITEM"},
-      {"id": "3", "title": "THIRST ITEM"}],
+    { id: "1", title: "FIRST ITEM", selected: false },
+    { id: "2", title: "SECOND ITEM", selected: false },
+    { id: "3", title: "THIRST ITEM", selected: false },
+  ],
   multiCol: false,
 };
 
