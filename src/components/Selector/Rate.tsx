@@ -1,7 +1,7 @@
 import { IValue } from "../../types";
 import useValueContext from "../../hooks/useValueContext";
 import SelectorColumn from "./SelectorList";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
 interface RateProps {
   /**
@@ -16,116 +16,139 @@ interface ICompared {
   winnerID: string;
 }
 
-/**
- * Primary UI component for user interaction
- */
-const Rate = ({ absoluteHeight = true }: RateProps) => {
-  const { selected } = useValueContext();
-  const [sorted, setSorted] = useState<IValue[]>(selected);
-  const [currentItemsIdx, setCurrentItemsIdx] = useState([0, 1]);
-  const [swapped, setSwapped] = useState(false);
-  const [finishedSorting, setFinishedSorting] = useState(false);
-  const [compared, setCompared] = useState<ICompared[]>([]);
+// turn into type decleration as below
+interface IState {
+  sorted: IValue[];
+  currentItemsIdx: number[];
+  compared: ICompared[];
+  swapped: boolean;
+  finished: boolean;
+}
 
-  const maxIndex = selected.length - 1;
+type TAction =
+  | { type: "SWAP_ITEMS"; winnerIdx: number }
+  | { type: "FIND_NEXT" };
 
-  const addToCompared = (id1: string, id2: string, winnerID: string) => {
-    const existingWinnerID = findInCompared(id1, id2);
-    if (!existingWinnerID)
-      setCompared((prev) => {
-        return [
-          ...prev,
-          {
-            id1: id1,
-            id2: id2,
-            winnerID: winnerID,
-          },
-        ];
-      });
+const ratingReducer = (state: IState, action: TAction): IState => {
+  const maxIndex = state.sorted.length;
+
+  const swapCurrentItems = (winnerIdx: number): [IValue[], boolean] => {
+    let swapped = false;
+    const newSorted = [...state.sorted];
+    // swap the elements compared elements
+    if (winnerIdx !== state.currentItemsIdx[0]) {
+      newSorted[state.currentItemsIdx[0]] = newSorted.splice(
+        state.currentItemsIdx[1],
+        1,
+        newSorted[state.currentItemsIdx[0]]
+      )[0];
+      swapped = true;
+    }
+    return [newSorted, swapped];
   };
 
-  const findIdxInSorted = (id: string) => {
-    return sorted.findIndex((it) => it.id === id);
-  };
-
-  const updateSorted = (winnerIdx: number) => {
-    setSorted((prev) => {
-      const newArr = [...prev];
-
-      // swap the elements compared elements
-      if (winnerIdx !== currentItemsIdx[0]) {
-        newArr[currentItemsIdx[0]] = newArr.splice(
-          currentItemsIdx[1],
-          1,
-          newArr[currentItemsIdx[0]]
-        )[0];
-        setSwapped(true);
-      }
-
-      return newArr;
-    });
-  };
-
-  // THERE IS A MASSIVE ERROR IN THE UPDATING OF THE INDIZES Try to seperate stuff!
-  const updateIndex = () => {
-    setCurrentItemsIdx((prev) => {
-      if (prev[1] + 1 <= maxIndex) {
-        const nextItem1 = sorted[prev[0] + 1];
-        const nextItem2 = sorted[prev[1] + 1];
-        skipCompare(nextItem1, nextItem2);
-
-        return [prev[0] + 1, prev[1] + 1];
-      } else {
-        if (swapped === false) {
-          setFinishedSorting(true);
-        }
-      }
-      setSwapped(false);
-      const nextItem1 = sorted[0];
-      const nextItem2 = sorted[1];
-      skipCompare(nextItem1, nextItem2);
-      return [0, 1];
-    });
-    console.log("INDEX END: " + currentItemsIdx);
-  };
-
+  /**
+   * Check if the elements with `id1` and `id2` have been compare before
+   */
   const findInCompared = (id1: string, id2: string) => {
     let winnerID;
-    const existsID = compared.findIndex((it) => {
-      if (
-        (it.id1 === id1 && it.id2 === id2) ||
-        (it.id1 === id2 && it.id2 === id1)
-      )
-        return true;
+    const existsID = state.compared.findIndex((it) => {
+      if (it.id1 === id1 && it.id2 === id2) return true;
       return false;
     });
     if (existsID !== -1) {
-      winnerID = compared[existsID].winnerID;
-      return winnerID;
+      winnerID = state.compared[existsID].winnerID;
     }
     return winnerID;
   };
 
-  const skipCompare = (nextItem1: IValue, nextItem2: IValue) => {
-    const winnerID = findInCompared(nextItem1.id, nextItem2.id);
-    if (winnerID) {
-      const winnerIdx = findIdxInSorted(winnerID);
-      updateSorted(winnerIdx);
-      updateIndex();
-    }
+  /**
+   * Add the ids of already compared elements to a list to save it for later iterations.
+   * `id1` is the element that won the comparison.
+   */
+  const addToCompared = (id1: string, id2: string, winnerID: string) => {
+    const existingWinnerID = findInCompared(id1, id2);
+    if (!existingWinnerID)
+      return [
+        ...state.compared,
+        {
+          id1: winnerID === id1 ? id1 : id2,
+          id2: winnerID === id1 ? id2 : id1,
+          winnerID: winnerID,
+        },
+      ];
+    return [...state.compared];
   };
 
+  const findNewIndex = (
+    currentIdx: number[],
+    swapped: boolean
+  ): { finished: boolean; newIndex: number[] } => {
+    const step = 1;
+    let finished = false;
+    let newIndex = [currentIdx[0] + step, currentIdx[1] + step];
+
+    if (newIndex[1] >= maxIndex) {
+      if (!swapped) {
+        finished = true;
+        return { finished: true, newIndex: [0, 1] };
+      }
+      newIndex = [0, 1];
+      swapped = false;
+    }
+
+    const nextItem1 = state.sorted[newIndex[0]];
+    const nextItem2 = state.sorted[newIndex[1]];
+    const winnerID = findInCompared(nextItem1.id, nextItem2.id);
+
+    if (winnerID) {
+      console.log("SKIPPING:" + nextItem1.title + " " + nextItem2.title);
+      ({ finished, newIndex } = findNewIndex(newIndex, swapped));
+    }
+    return { finished: finished, newIndex: newIndex };
+  };
+
+  switch (action.type) {
+    case "SWAP_ITEMS":
+      const [sorted, swapped] = swapCurrentItems(action.winnerIdx);
+      const newCompared = addToCompared(
+        state.sorted[state.currentItemsIdx[0]].id,
+        state.sorted[state.currentItemsIdx[1]].id,
+        state.sorted[action.winnerIdx].id
+      );
+
+      return {
+        ...state,
+        sorted: sorted,
+        swapped: swapped,
+        compared: newCompared,
+      };
+
+    case "FIND_NEXT":
+      const { finished, newIndex } = findNewIndex(
+        state.currentItemsIdx,
+        state.swapped
+      );
+      return { ...state, currentItemsIdx: newIndex, finished: finished };
+  }
+};
+
+/**
+ * Order the selected elements
+ */
+const Rate = ({ absoluteHeight = true }: RateProps) => {
+  const { selected } = useValueContext();
+  const [ratingState, dispatchRatingAction] = useReducer(ratingReducer, {
+    sorted: selected,
+    currentItemsIdx: [0, 1],
+    compared: [],
+    swapped: false,
+    finished: false,
+  });
+
   const handleItemClick = (winnerIdx: number) => {
-    console.log("INDEX START: " + currentItemsIdx);
-
-    addToCompared(
-      sorted[currentItemsIdx[0]].id,
-      sorted[currentItemsIdx[1]].id,
-      sorted[winnerIdx].id
-    );
-
-    updateSorted(winnerIdx);
-    updateIndex();
+    dispatchRatingAction({ type: "SWAP_ITEMS", winnerIdx: winnerIdx });
+    dispatchRatingAction({ type: "FIND_NEXT" });
   };
 
   const height = absoluteHeight ? "h-screen" : "";
@@ -135,26 +158,32 @@ const Rate = ({ absoluteHeight = true }: RateProps) => {
         <div className="flex flex-grow p-2">
           <SelectorColumn
             title="Sorted Values"
-            content={sorted}
+            content={ratingState.sorted}
             multiCol={false}
             onItemClick={() => {}}
           ></SelectorColumn>
         </div>
       )}
-      {!finishedSorting && (
+      {!ratingState.finished && (
         <div className="flex justify-center flex-grow m-2 rounded bg-primary-700">
           <div className="flex flex-col items-stretch justify-center p-10 m-20 rounded h-60 bg-primary-600">
             <div
-              onClick={handleItemClick.bind(null, currentItemsIdx[0])}
+              onClick={handleItemClick.bind(
+                null,
+                ratingState.currentItemsIdx[0]
+              )}
               className="p-4 my-5 text-xl font-bold text-center rounded hover:bg-secondary-400 bg-primary-500"
             >
-              {sorted[currentItemsIdx[0]].title}
+              {ratingState.sorted[ratingState.currentItemsIdx[0]].title}
             </div>
             <div
-              onClick={handleItemClick.bind(null, currentItemsIdx[1])}
+              onClick={handleItemClick.bind(
+                null,
+                ratingState.currentItemsIdx[1]
+              )}
               className="p-4 my-5 text-xl font-bold text-center rounded bg-primary-500 hover:bg-secondary-400"
             >
-              {sorted[currentItemsIdx[1]].title}
+              {ratingState.sorted[ratingState.currentItemsIdx[1]].title}
             </div>
           </div>
         </div>
