@@ -1,5 +1,5 @@
 .column {
-  @apply flex flex-col items-center flex-grow p-1 rounded-md bg-primary-700;
+  @apply flex flex-col items-center flex-grow p-1 rounded-sm bg-primary-700;
 }
 
 .column h1 {

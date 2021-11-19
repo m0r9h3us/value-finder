@@ -1,7 +1,8 @@
 import { IValue } from "../../types";
 import useValueContext from "../../hooks/useValueContext";
-import SelectorColumn from "./SelectorList";
+import List from "./List";
 import { useState, useReducer } from "react";
+import { SortDescendingIcon } from "@heroicons/react/solid";
 
 interface RateProps {
   /**
@@ -138,6 +139,7 @@ const ratingReducer = (state: IState, action: TAction): IState => {
  */
 const Rate = ({ absoluteHeight = true }: RateProps) => {
   const { selected } = useValueContext();
+  console.log("sleected" + selected.length);
   const [ratingState, dispatchRatingAction] = useReducer(ratingReducer, {
     sorted: selected,
     currentItemsIdx: [0, 1],
@@ -151,20 +153,24 @@ const Rate = ({ absoluteHeight = true }: RateProps) => {
     dispatchRatingAction({ type: "FIND_NEXT" });
   };
 
+  const hasElements = !(ratingState.sorted.length === 0);
+  console.log("THERE ARE ELEMENTS?: " + hasElements + ratingState.sorted.length)
   const height = absoluteHeight ? "h-screen" : "";
   return (
     <>
-      {true && (
+      {!hasElements && <p>NO RATABLE ELEMENTS</p>}
+      {false && (
         <div className="flex flex-grow p-2">
-          <SelectorColumn
+          <List
             title="Sorted Values"
             content={ratingState.sorted}
             multiCol={false}
             onItemClick={() => {}}
-          ></SelectorColumn>
+            navigation={true}
+          ></List>
         </div>
       )}
-      {!ratingState.finished && (
+      {!ratingState.finished && hasElements && (
         <div className="flex justify-center flex-grow m-2 rounded bg-primary-700">
           <div className="flex flex-col items-stretch justify-center p-10 m-20 rounded h-60 bg-primary-600">
             <div

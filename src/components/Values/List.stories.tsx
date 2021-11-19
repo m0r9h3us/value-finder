@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import SelectorColumn from "./SelectorList";
+import List from "./List";
 import ValueList from "../../values.json";
 import ValueContextProvider from "../../context/ValueContextProvider" 
 //import "../../index.css";
@@ -7,7 +7,7 @@ import ValueContextProvider from "../../context/ValueContextProvider"
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Selector/Column",
-  component: SelectorColumn,
+  component: List,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     onClick: { action: "clicked" },
@@ -19,11 +19,11 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof SelectorColumn>;
+} as ComponentMeta<typeof List>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof SelectorColumn> = (args) => (
-  <SelectorColumn {...args} />
+const Template: ComponentStory<typeof List> = (args) => (
+  <List {...args} />
 );
 
 export const SmallList = Template.bind({});

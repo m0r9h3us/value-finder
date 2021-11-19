@@ -10,6 +10,7 @@ module.exports = {
         '48': '12rem',
       },
       colors: {
+        orange: colors.orange,
         primary: colors.warmGray,
         secondary: colors.green,
         base: {

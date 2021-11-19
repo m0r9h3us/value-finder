@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import cn from "classnames";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+import useNavigationContext from "../../hooks/useNavigationContext";
+import {
+  HomeIcon,
+  MenuIcon,
+  ArrowCircleRightIcon,
+  ArrowCircleLeftIcon,
+} from "@heroicons/react/solid";
+
+import { IconItem } from "./HeaderItem";
 
 interface IHeaderProps {
   /**
@@ -12,41 +21,46 @@ interface IHeaderProps {
 }
 
 export const Header = ({ height = 16, handleSidebarButton }: IHeaderProps) => {
+  console.log("render Header");
+  
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    setCount((prev) => prev++);
+    
+    console.log("render Header");
+  }, []);
+
   return (
     <header className={cn(styles.header, `h-${height}`)}>
-      <div className="flex items-center justify-between flex-grow p-1 rounded-md bg-base-dark">
-        <div>
-          <button className="p-2.5 text-lg rounded-md shadow-md bg-secondary-300">
-            {" "}
-            PREV
-          </button>
+      <div className="flex items-center justify-between flex-grow p-1 rounded-sm bg-base-dark">
+        <div className="flex items-center space-x-2 ">
+          <IconItem linkTo="/" Icon={HomeIcon}></IconItem>
+          <span className="font-sans text-2xl font-bold tracking-tighter">
+            bAware
+          </span>
         </div>
-        <div>
-          <button
-            className="p-2 rounded-full top-4 left-36 md:translate-x-full opacity-90 bg-primary-600"
+        <div className="flex">
+          {/* <div className="flex p-1 space-x-1 rounded ">
+            <Link
+              to="/rate"
+              className="rounded hover:bg-primary-800 hover:bg-opacity-20"
+            >
+              <ArrowCircleLeftIcon className="w-8 h-8" />
+            </Link>
+            <Link
+              to="/choose"
+              className="rounded hover:bg-primary-800 hover:bg-opacity-20"
+            >
+              <ArrowCircleRightIcon className="w-8 h-8" />
+            </Link>
+          </div> */}
+          <div
+            className="flex space-x-6 rounded-sm cursor-pointer hover:bg-primary-800 hover:bg-opacity-20"
             onClick={handleSidebarButton}
           >
-            Sidebar
-          </button>
-        </div>
-
-        <span className="text-2xl font-bold"> CHOOSE</span>
-        <div>
-          <button
-            className="p-2 rounded-full top-4 left-36 md:translate-x-full opacity-90 bg-primary-600"
-            onClick={handleSidebarButton}
-          >
-            Sidebar
-          </button>
-        </div>
-        
-        <div>
-        <Link to="/rate" className="p-2.5 text-lg rounded-md bg-secondary-300">NEXT </Link>
-          {/* <button className="p-2.5 text-lg rounded-md bg-secondary-300">
-            {" "}
-            NEXT
-          </button> */}
-          {/* <Button label="DARK" size="xl"></Button> */}
+            <MenuIcon className="w-10 h-10"></MenuIcon>
+          </div>
         </div>
       </div>
     </header>

@@ -19,6 +19,7 @@ const ValueContextProvider: FC<IValueContextProviderProps> = ({
   items = [],
 }) => {
   const [values, setValues] = useState<IValue[]>(items);
+  const [sorted, setSorted] = useState<IValue[]>([]);
   const selected = values.filter((it) => it.selected === true);
 
   const setSelected = (item: IValue, to: boolean) => {
@@ -48,8 +49,10 @@ const ValueContextProvider: FC<IValueContextProviderProps> = ({
   const valueContext = {
     values: values,
     selected: selected,
+    sorted: sorted,
     selectItem: selectItem,
     removeItem: removeItem,
+    setSorted: (items: IValue[]) => setSorted(items),
   };
 
   return (

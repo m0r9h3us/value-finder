@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IValue } from "../../types";
-import SelectorColumn from "./SelectorList";
+import List from "./List";
 import useValueContext from "../../hooks/useValueContext";
 
 interface PoolProps {
@@ -19,7 +19,7 @@ const Selector = ({ absoluteHeight = true }: PoolProps) => {
   const handleItemClick = (item: IValue) => {
     console.log("selected: " + item.selected);
     if (!item.selected) {
-      selectItem(item)
+      selectItem(item);
     } else {
       removeItem(item);
     }
@@ -27,13 +27,14 @@ const Selector = ({ absoluteHeight = true }: PoolProps) => {
 
   const height = absoluteHeight ? "h-screen" : "";
   return (
-    <div className={`${height} flex flex-grow p-2 space-x-2 bg-primary-500`}>
-      <SelectorColumn
+    <div className={`${height} flex flex-grow p-1 space-x-2 bg-primary-500`}>
+      <List
         title="All Values"
         content={values}
         multiCol={true}
         onItemClick={handleItemClick}
-      ></SelectorColumn>
+        navigation={true}
+      ></List>
     </div>
   );
 };
