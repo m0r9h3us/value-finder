@@ -1,5 +1,5 @@
-import List from "../Values/List";
-import useValueContext from "../../hooks/useValueContext";
+import List from '../Values/List';
+import useValueContext from '../../hooks/useValueContext';
 
 interface SidebarProps {
   sidebarIsVisible: boolean;
@@ -9,18 +9,18 @@ interface SidebarProps {
 const Sidebar = ({ sidebarIsVisible, handleSidebarClick }: SidebarProps) => {
   const valCTX = useValueContext();
   return (
-    <div className="flex flex-grow p-1 pr-0 md:w-48">
+    <div className='flex flex-grow p-1 pr-0 md:w-48'>
       <button
-        className="fixed w-16 p-2 rounded-full top-20 left-4 opacity-90 bg-primary-600"
+        className='fixed w-16 p-2 rounded-full top-20 left-4 opacity-90 bg-primary-600'
         onClick={handleSidebarClick}
       >
-        {sidebarIsVisible ? "<" : ">"}
+        {sidebarIsVisible ? '<' : '>'}
       </button>
 
       <List
-        title="My Values"
+        title='My Values'
         content={valCTX.selected}
-        multiCol={false}
+        variant='gridOneCol'
         onItemClick={valCTX.removeItem}
         navigation={true}
       ></List>

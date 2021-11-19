@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { IValue } from "../../types";
-import List from "./List";
-import useValueContext from "../../hooks/useValueContext";
+import React, { useEffect, useState } from 'react';
+import { IValue } from '../../types';
+import List from './List';
+import useValueContext from '../../hooks/useValueContext';
 
 interface PoolProps {
   /**
@@ -17,7 +17,7 @@ const Selector = ({ absoluteHeight = true }: PoolProps) => {
   const { selectItem, removeItem, values } = useValueContext();
 
   const handleItemClick = (item: IValue) => {
-    console.log("selected: " + item.selected);
+    console.log('selected: ' + item.selected);
     if (!item.selected) {
       selectItem(item);
     } else {
@@ -25,13 +25,13 @@ const Selector = ({ absoluteHeight = true }: PoolProps) => {
     }
   };
 
-  const height = absoluteHeight ? "h-screen" : "";
+  const height = absoluteHeight ? 'h-screen' : '';
   return (
     <div className={`${height} flex flex-grow p-1 space-x-2 bg-primary-500`}>
       <List
-        title="All Values"
+        title='All Values'
         content={values}
-        multiCol={true}
+        variant='gridMultiCol'
         onItemClick={handleItemClick}
         navigation={true}
       ></List>

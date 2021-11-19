@@ -1,8 +1,8 @@
-import { IValue } from "../../types";
-import useValueContext from "../../hooks/useValueContext";
-import List from "./List";
-import { useState, useReducer } from "react";
-import { SortDescendingIcon } from "@heroicons/react/solid";
+import { IValue } from '../../types';
+import useValueContext from '../../hooks/useValueContext';
+import List from './List';
+import { useState, useReducer } from 'react';
+import { SortDescendingIcon } from '@heroicons/react/solid';
 
 interface RateProps {
   /**
@@ -27,8 +27,8 @@ interface IState {
 }
 
 type TAction =
-  | { type: "SWAP_ITEMS"; winnerIdx: number }
-  | { type: "FIND_NEXT" };
+  | { type: 'SWAP_ITEMS'; winnerIdx: number }
+  | { type: 'FIND_NEXT' };
 
 const ratingReducer = (state: IState, action: TAction): IState => {
   const maxIndex = state.sorted.length;
@@ -103,14 +103,14 @@ const ratingReducer = (state: IState, action: TAction): IState => {
     const winnerID = findInCompared(nextItem1.id, nextItem2.id);
 
     if (winnerID) {
-      console.log("SKIPPING:" + nextItem1.title + " " + nextItem2.title);
+      console.log('SKIPPING:' + nextItem1.title + ' ' + nextItem2.title);
       ({ finished, newIndex } = findNewIndex(newIndex, swapped));
     }
     return { finished: finished, newIndex: newIndex };
   };
 
   switch (action.type) {
-    case "SWAP_ITEMS":
+    case 'SWAP_ITEMS':
       const [sorted, swapped] = swapCurrentItems(action.winnerIdx);
       const newCompared = addToCompared(
         state.sorted[state.currentItemsIdx[0]].id,
@@ -125,7 +125,7 @@ const ratingReducer = (state: IState, action: TAction): IState => {
         compared: newCompared,
       };
 
-    case "FIND_NEXT":
+    case 'FIND_NEXT':
       const { finished, newIndex } = findNewIndex(
         state.currentItemsIdx,
         state.swapped
@@ -139,7 +139,7 @@ const ratingReducer = (state: IState, action: TAction): IState => {
  */
 const Rate = ({ absoluteHeight = true }: RateProps) => {
   const { selected } = useValueContext();
-  console.log("sleected" + selected.length);
+  console.log('sleected' + selected.length);
   const [ratingState, dispatchRatingAction] = useReducer(ratingReducer, {
     sorted: selected,
     currentItemsIdx: [0, 1],
@@ -149,36 +149,38 @@ const Rate = ({ absoluteHeight = true }: RateProps) => {
   });
 
   const handleItemClick = (winnerIdx: number) => {
-    dispatchRatingAction({ type: "SWAP_ITEMS", winnerIdx: winnerIdx });
-    dispatchRatingAction({ type: "FIND_NEXT" });
+    dispatchRatingAction({ type: 'SWAP_ITEMS', winnerIdx: winnerIdx });
+    dispatchRatingAction({ type: 'FIND_NEXT' });
   };
 
   const hasElements = !(ratingState.sorted.length === 0);
-  console.log("THERE ARE ELEMENTS?: " + hasElements + ratingState.sorted.length)
-  const height = absoluteHeight ? "h-screen" : "";
+  console.log(
+    'THERE ARE ELEMENTS?: ' + hasElements + ratingState.sorted.length
+  );
+  const height = absoluteHeight ? 'h-screen' : '';
   return (
     <>
       {!hasElements && <p>NO RATABLE ELEMENTS</p>}
       {false && (
-        <div className="flex flex-grow p-2">
+        <div className='flex flex-grow p-2'>
           <List
-            title="Sorted Values"
+            title='Sorted Values'
             content={ratingState.sorted}
-            multiCol={false}
+            variant='gridOneCol'
             onItemClick={() => {}}
             navigation={true}
           ></List>
         </div>
       )}
       {!ratingState.finished && hasElements && (
-        <div className="flex justify-center flex-grow m-2 rounded bg-primary-700">
-          <div className="flex flex-col items-stretch justify-center p-10 m-20 rounded h-60 bg-primary-600">
+        <div className='flex justify-center flex-grow m-2 rounded bg-primary-700'>
+          <div className='flex flex-col items-stretch justify-center p-10 m-20 rounded h-60 bg-primary-600'>
             <div
               onClick={handleItemClick.bind(
                 null,
                 ratingState.currentItemsIdx[0]
               )}
-              className="p-4 my-5 text-xl font-bold text-center rounded hover:bg-secondary-400 bg-primary-500"
+              className='p-4 my-5 text-xl font-bold text-center rounded hover:bg-secondary-400 bg-primary-500'
             >
               {ratingState.sorted[ratingState.currentItemsIdx[0]].title}
             </div>
@@ -187,7 +189,7 @@ const Rate = ({ absoluteHeight = true }: RateProps) => {
                 null,
                 ratingState.currentItemsIdx[1]
               )}
-              className="p-4 my-5 text-xl font-bold text-center rounded bg-primary-500 hover:bg-secondary-400"
+              className='p-4 my-5 text-xl font-bold text-center rounded bg-primary-500 hover:bg-secondary-400'
             >
               {ratingState.sorted[ratingState.currentItemsIdx[1]].title}
             </div>

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import useValueContext from '../../hooks/useValueContext';
 import { Link } from 'react-router-dom';
-import Sidebar from './Sidebar';
 import useMediaQuery from '../../hooks/useMediaqueries';
-import List from './OverviewList';
+import List from './List';
 
 interface PoolProps {}
 
@@ -21,7 +19,7 @@ const Overview = ({}: PoolProps) => {
 
   return (
     <div className={containerStyle}>
-      <div className='p-4 space-y-4 bg-primary-700 rounded-sm'>
+      <div className='p-4 space-y-4 bg-primary-700 rounded-sm '>
         <Card />
       </div>
       <div className='bg-primary-700 p-4 md:ml-1 rounded-sm flex-grow max-w-1/2'>
@@ -29,6 +27,7 @@ const Overview = ({}: PoolProps) => {
           title='My Values'
           content={valCtx.selected}
           onItemClick={valCtx.removeItem}
+          variant='flex'
         />
       </div>
     </div>

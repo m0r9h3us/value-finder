@@ -1,57 +1,70 @@
 import React from 'react';
 import cn from 'classnames';
-import SelectorItem from './SelectorItem';
+import SelectorItem from './ListItem';
 import { IValue } from '../../types';
 import {
-  HomeIcon,
-  MenuIcon,
   ArrowCircleRightIcon,
   ArrowCircleLeftIcon,
 } from '@heroicons/react/solid';
-import styles from './List.module.css';
 
 export interface ISelectorColumn {
   title: string;
   content: IValue[];
-  multiCol: boolean;
-  navigation: boolean;
+  variant: 'gridMultiCol' | 'gridOneCol' | 'flex';
+  navigation?: boolean;
   background?: string;
   onItemClick: (item: IValue) => void;
 }
 
+const style = () => {};
+
 const List = ({
   title,
   content,
-  multiCol,
+  variant,
   onItemClick,
-  navigation,
-  background,
+  navigation = false,
+  background = '',
 }: ISelectorColumn) => {
-  const ulStyle = cn(
-    styles.column__list,
-    multiCol ? styles.list__multicol : styles.list__onecol,
-    background
-  );
-  const headerStyle = cn(
-    'flex items-center w-full',
-    navigation ? 'justify-between' : 'justify-center'
-  );
+  const styles = {
+    container: `
+      flex flex-col flex-grow 
+      items-centers h-full 
+      p-4 rounded-sm 
+      md:space-l-10
+      ${background}
+  `,
+    header: `
+      flex items-center w-full
+      p-2 whitespace-nowrap
+      ${navigation ? 'justify-between' : 'justify-center'}
+    `,
+    list: `
+      overflow-y-auto overflow-x-hidden
+      ${
+        variant === 'gridMultiCol'
+          ? 'grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5'
+          : ''
+      }
+      ${variant === 'gridOneCol' ? 'grid grid-cols-1' : ''}
+      ${
+        variant === 'flex'
+          ? 'flex flex-col p-1 rounded-sm bg-primary-600  overflow-x-hidden'
+          : ''
+      }
+    `,
+  };
 
   return (
-    <div className='flex flex-col items-centers flex-grow p-1 rounded-sm bg-primary-700'>
-      <div className={headerStyle}>
+    <div className={styles.container}>
+      <div className={styles.header}>
         {navigation && <ArrowCircleLeftIcon className='w-10 h-10' />}
-        <h1 className='font-bold text-center '>{title}</h1>
+        <h1 className='font-bold text-center'>{title}</h1>
         {navigation && <ArrowCircleRightIcon className='w-10 h-10' />}
       </div>
-      <ul className={ulStyle}>
+      <ul className={styles.list}>
         {content.map((item: IValue) => (
-          <SelectorItem
-            key={item.id}
-            onClick={onItemClick}
-            item={item}
-            hoverColor='green'
-          />
+          <SelectorItem key={item.id} onClick={onItemClick} item={item} />
         ))}
       </ul>
     </div>
