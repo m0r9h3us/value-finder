@@ -1,5 +1,5 @@
-import { FC, useCallback, useState } from "react";
-import { NavigationContext, INav } from "./navigationContext";
+import { FC, useCallback, useState } from 'react';
+import { NavigationContext, INav } from './navigationContext';
 
 interface IValueContextProviderProps {}
 
@@ -8,7 +8,7 @@ const NavigationContextProvider: FC<IValueContextProviderProps> = ({
 }) => {
   const [nav, setNav] = useState<INav>({ prev: undefined, next: undefined });
   const [sidebarIsVisible, setSidebarIsVisible] = useState(true);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
 
   const toggleSidebar = () => {
     setSidebarIsVisible((prev) => !prev);
@@ -21,10 +21,6 @@ const NavigationContextProvider: FC<IValueContextProviderProps> = ({
     []
   );
 
-  const setTitleCb = useCallback((title: string) => {
-    setTitle(title);
-  }, []);
-
   const navigationContext = {
     nav: nav,
     sidebarIsVisible: sidebarIsVisible,
@@ -35,7 +31,7 @@ const NavigationContextProvider: FC<IValueContextProviderProps> = ({
   };
   return (
     <NavigationContext.Provider value={navigationContext}>
-      {" "}
+      {' '}
       {children}
     </NavigationContext.Provider>
   );

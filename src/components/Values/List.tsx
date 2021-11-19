@@ -1,5 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
 import SelectorItem from './ListItem';
 import { IValue } from '../../types';
 import {
@@ -15,8 +14,6 @@ export interface ISelectorColumn {
   background?: string;
   onItemClick: (item: IValue) => void;
 }
-
-const style = () => {};
 
 const List = ({
   title,

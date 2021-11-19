@@ -6,8 +6,8 @@ import { IValue } from '../../types';
 const bStyle = `
   flex flex-grow justify-center
   px-1 py-2 m-0.5 rounded-sm
-  text-primary-400 font-bold hover:text-primary-800': true
-  cursor-pointer': true
+  text-primary-400 font-bold hover:text-primary-800
+  cursor-pointer
 `;
 
 export interface ISelectorItemProps {

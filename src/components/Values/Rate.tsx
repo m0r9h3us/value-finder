@@ -1,8 +1,7 @@
 import { IValue } from '../../types';
 import useValueContext from '../../hooks/useValueContext';
 import List from './List';
-import { useState, useReducer } from 'react';
-import { SortDescendingIcon } from '@heroicons/react/solid';
+import { useReducer } from 'react';
 
 interface RateProps {
   /**

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IValue } from '../../types';
 import List from './List';
 import useValueContext from '../../hooks/useValueContext';

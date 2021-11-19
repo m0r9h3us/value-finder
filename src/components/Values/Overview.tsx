@@ -1,16 +1,12 @@
 import useValueContext from '../../hooks/useValueContext';
 import { Link } from 'react-router-dom';
-import useMediaQuery from '../../hooks/useMediaqueries';
 import List from './List';
-
-interface PoolProps {}
 
 /**
  * Home is the Home Page
  */
-const Overview = ({}: PoolProps) => {
+const Overview = () => {
   const valCtx = useValueContext();
-  const isMobil = !useMediaQuery('(min-width: 768px)');
 
   const containerStyle = `
       flex flex-col flex-grow 

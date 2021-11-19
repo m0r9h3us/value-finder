@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-
 interface PoolProps {
   /**
    * If this component is rendererd in a parent that defines a height set this to false.
@@ -12,7 +10,7 @@ interface PoolProps {
  */
 const Home = ({ absoluteHeight = true }: PoolProps) => {
   return (
-    <div className="flex flex-grow p-1">
+    <div className='flex flex-grow p-1'>
       <p>THIS IS HOME</p>
     </div>
   );

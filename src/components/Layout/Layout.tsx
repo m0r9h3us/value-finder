@@ -1,11 +1,7 @@
 import React from 'react';
 import { FC, useState, useEffect } from 'react';
 import { Header as FixedHeader } from './Header';
-import { Transition } from '@headlessui/react';
-import SelectorColumn from '../Values/List';
-import useValueContext from '../../hooks/useValueContext';
 import useMediaQuery from '../../hooks/useMediaqueries';
-// import { Sidebar } from "./Sidebar";
 import Menu from './Menu';
 interface ILayoutProps {}
 

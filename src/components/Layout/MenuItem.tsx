@@ -1,7 +1,6 @@
-import React from "react";
-import cn from "classnames";
-import styles from "./MenuItem.module.css";
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import React from 'react';
+import cn from 'classnames';
+import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 
 export interface IMenuItem {
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -36,7 +35,7 @@ const MenuItem = ({ item, onClick }: IMenuItemProps) => {
   hover:opacity-50
   cursor-pointer`;
 
-  const liStyle = cn(baseStyle, match ? "bg-primary-800 text-primary-500" : "");
+  const liStyle = cn(baseStyle, match ? 'bg-primary-800 text-primary-500' : '');
 
   return (
     <Link to={item.linkTo} className={liStyle}>
