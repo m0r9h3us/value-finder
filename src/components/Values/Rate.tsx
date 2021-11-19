@@ -195,6 +195,14 @@ const Rate = ({ absoluteHeight = true }: RateProps) => {
           </div>
         </div>
       )}
+      <div className='bg-primary-700 p-4 md:ml-1 rounded-sm flex-grow max-w-1/2'>
+        <List
+          title='My Values'
+          content={ratingState.sorted}
+          onItemClick={() => {}}
+          variant='flex'
+        />
+      </div>
     </>
   );
 };
