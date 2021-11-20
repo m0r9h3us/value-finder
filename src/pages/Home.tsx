@@ -14,8 +14,10 @@ const Home = ({ absoluteHeight = true }: PoolProps) => {
   const valCtx = useValueContext();
   return (
     <div className='flex flex-grow p-1'>
-      <p>THIS IS HOME</p>
-      <div className='bg-primary-700 p-4 md:ml-1 rounded-sm flex-grow max-w-1/2'>
+      <p className='bg-primary-700 p-4 md:ml-1 rounded-sm flex-grow'>
+        THIS IS HOME
+      </p>
+      <div className='bg-primary-700 p-4 md:ml-1 rounded-sm w-48 '>
         <List
           title='My Values'
           content={valCtx.selected}

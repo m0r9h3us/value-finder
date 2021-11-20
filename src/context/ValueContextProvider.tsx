@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
-import { ValueContext } from "./valueContext";
-import { IValue } from "../types";
+import { FC, useState } from 'react';
+import { ValueContext } from './valueContext';
+import { IValue } from '../types';
 
 interface IValueContextProviderProps {
   /**
@@ -57,7 +57,7 @@ const ValueContextProvider: FC<IValueContextProviderProps> = ({
 
   return (
     <ValueContext.Provider value={valueContext}>
-      {" "}
+      {' '}
       {children}
     </ValueContext.Provider>
   );
