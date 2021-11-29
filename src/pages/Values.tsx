@@ -1,7 +1,7 @@
-import Selector from "../components/Values/Selector";
-import Rate from "../components/Values/Rate";
-import Summary from "../components/Values/Overview";
-import { Routes, Route } from "react-router-dom";
+import Selector from '../components/Values/Selector';
+import Rate from '../components/Values/Rate';
+import Summary from '../components/Values/Overview';
+import { Routes, Route } from 'react-router-dom';
 
 /**
  * Home is the Home Page
@@ -9,9 +9,9 @@ import { Routes, Route } from "react-router-dom";
 const Values = () => {
   return (
     <Routes>
-      <Route path="" element={<Summary />} />
-      <Route path="select" element={<Selector absoluteHeight={false} />} />
-      <Route path="rate" element={<Rate />} />
+      <Route path='' element={<Summary />} />
+      <Route path='select' element={<Selector absoluteHeight={false} />} />
+      <Route path='rate' element={<Rate />} />
     </Routes>
   );
 };
