@@ -9,8 +9,9 @@ const menuItems = [
   { linkTo: '/', title: 'HOME', isActive: false },
   { linkTo: '/values', title: 'VALUES', isActive: false },
 ];
+
 const Menu = ({ closeMenu }: IMenuProps) => {
-  const [items, setItems] = useState<IMenuItem[]>(menuItems);
+  const [items] = useState<IMenuItem[]>(menuItems);
 
   const handleItemClick = (item: IMenuItem) => {
     closeMenu();

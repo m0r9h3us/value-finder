@@ -39,11 +39,7 @@ const MenuItem = ({ item, onClick }: IMenuItemProps) => {
 
   return (
     <Link to={item.linkTo} className={liStyle}>
-      <li
-        key={item.title}
-        // className={liStyle}
-        onClick={onClick.bind(null, item)}
-      >
+      <li key={item.title} onClick={onClick.bind(null, item)}>
         {item.title}
       </li>
     </Link>

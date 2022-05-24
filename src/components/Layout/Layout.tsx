@@ -10,7 +10,6 @@ export const Layout: FC<ILayoutProps> = ({ children }) => {
   const isMobil = !useMediaQuery('(min-width: 768px)');
 
   useEffect(() => {
-    console.log('SETTING menuIsVisible to: ' + isMobil);
     setMenuIsVisible(!isMobil);
   }, [isMobil]);
 

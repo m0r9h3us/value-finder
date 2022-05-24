@@ -3,25 +3,29 @@ import styles from './Header.module.css';
 import cn from 'classnames';
 import { HomeIcon, MenuIcon } from '@heroicons/react/solid';
 
-import { IconItem } from './HeaderItem';
+import { IconItem } from './IconItem';
 
 interface IHeaderProps {
   /**
    * Height of the Header in Tailwind Units
    */
   height?: number;
+  title?: string;
   handleSidebarButton: () => void;
 }
 
-export const Header = ({ height = 16, handleSidebarButton }: IHeaderProps) => {
-  console.log('render Header');
-
-  const [count, setCount] = useState<number>(0);
+/**
+ * Header Component is used for headline and Menu Buttons
+ */
+export const Header = ({
+  height = 16,
+  title = 'bAware',
+  handleSidebarButton,
+}: IHeaderProps) => {
+  const [, setCount] = useState<number>(0);
 
   useEffect(() => {
     setCount((prev) => prev++);
-
-    console.log('render Header');
   }, []);
 
   return (
@@ -30,7 +34,7 @@ export const Header = ({ height = 16, handleSidebarButton }: IHeaderProps) => {
         <div className='flex items-center space-x-2 '>
           <IconItem linkTo='/' Icon={HomeIcon}></IconItem>
           <span className='font-sans text-2xl font-bold tracking-tighter'>
-            bAware
+            {title}
           </span>
         </div>
         <div className='flex'>
