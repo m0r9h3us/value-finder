@@ -14,15 +14,20 @@ const Home = ({ absoluteHeight = true }: PoolProps) => {
   const valCtx = useValueContext();
   return (
     <div className='flex flex-grow p-1'>
-      <p className='bg-primary-700 p-4 md:ml-1 rounded-sm flex-grow'>
-        THIS IS HOME
-      </p>
-      <div className='bg-primary-700 p-4 md:ml-1 rounded-sm w-48 '>
+      <div className='flex flex-grow bg-primary-700 p-4 md:ml-1 rounded-sm '>
         <List
-          title='My Values'
+          title='Chosen Values'
           content={valCtx.selected}
           onItemClick={valCtx.removeItem}
-          variant='flex'
+          variant='gridOneCol'
+        />
+      </div>
+      <div className='flex flex-grow bg-primary-700 p-4 md:ml-1 rounded-sm'>
+        <List
+          title='Sorted Values'
+          content={valCtx.sorted}
+          onItemClick={valCtx.removeItem}
+          variant='gridOneCol'
         />
       </div>
     </div>
