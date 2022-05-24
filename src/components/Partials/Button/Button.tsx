@@ -1,6 +1,6 @@
-import React from "react";
-import cn from "classnames";
-import styles from "./Button.module.css";
+import React from 'react';
+import cn from 'classnames';
+import styles from './Button.module.css';
 
 interface ButtonProps {
   /**
@@ -10,7 +10,7 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   /**
    * Button contents
    */
@@ -26,7 +26,7 @@ interface ButtonProps {
  */
 export const Button = ({
   primary = false,
-  size = "md",
+  size = 'md',
   label,
   ...props
 }: ButtonProps) => {
@@ -34,10 +34,10 @@ export const Button = ({
 
   return (
     <button
-      type="button"
+      type='button'
       className={cn(
         styles.btn,
-        styles[`${primary ? "primary" : "secondary"}`],
+        styles[`${primary ? 'primary' : 'secondary'}`],
         styles[`${size}`]
       )}
       {...props}

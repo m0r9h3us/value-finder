@@ -43,4 +43,3 @@ Large.args = {
   size: 'lg',
   label: 'Button',
 };
-

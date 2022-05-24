@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
-import { ValueContext } from "./valueContext";
-import { IValue } from "../types";
+import { FC, useState } from 'react';
+import { ValueContext } from './valueContext';
+import { IValue } from '../types';
 
 interface IValueContextProviderProps {
   /**
@@ -19,6 +19,7 @@ const ValueContextProvider: FC<IValueContextProviderProps> = ({
   items = [],
 }) => {
   const [values, setValues] = useState<IValue[]>(items);
+  const [sorted, setSorted] = useState<IValue[]>([]);
   const selected = values.filter((it) => it.selected === true);
 
   const setSelected = (item: IValue, to: boolean) => {
@@ -48,13 +49,15 @@ const ValueContextProvider: FC<IValueContextProviderProps> = ({
   const valueContext = {
     values: values,
     selected: selected,
+    sorted: sorted,
     selectItem: selectItem,
     removeItem: removeItem,
+    setSorted: (items: IValue[]) => setSorted(items),
   };
 
   return (
     <ValueContext.Provider value={valueContext}>
-      {" "}
+      {' '}
       {children}
     </ValueContext.Provider>
   );

@@ -3,7 +3,7 @@
     flex-grow 
     justify-center 
     px-1 py-2 m-0.5 
-    rounded-md
+    rounded-sm
     bg-primary-600
     text-primary-400
     font-bold
@@ -17,7 +17,7 @@
     flex-grow 
     justify-center 
     px-1 py-2 m-0.5 
-    rounded-md
+    rounded-sm
     bg-yellow-400
     text-primary-500
     font-bold

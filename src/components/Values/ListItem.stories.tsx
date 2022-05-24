@@ -1,14 +1,14 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import SelectorItem from "./SelectorItem";
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import SelectorItem from './ListItem';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "Selector/Item",
+  title: 'Selector/Item',
   component: SelectorItem,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: "color" },
-    onClick: { action: "clicked" },
+    backgroundColor: { control: 'color' },
+    onClick: { action: 'clicked' },
   },
 } as ComponentMeta<typeof SelectorItem>;
 
@@ -20,14 +20,12 @@ const Template: ComponentStory<typeof SelectorItem> = (args) => (
 export const HoverGreen = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 HoverGreen.args = {
-  item: { id: "1", title: "ITEM", selected: false },
-  hoverColor: "green",
+  item: { id: '1', title: 'ITEM', selected: false },
 };
 
 export const HoverRed = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 
 HoverRed.args = {
-  item: { id: "1", title: "ITEM", selected: false },
-  hoverColor: "red",
+  item: { id: '1', title: 'ITEM', selected: false },
 };

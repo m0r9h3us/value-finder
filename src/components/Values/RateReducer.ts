@@ -1,14 +1,4 @@
-import { IValue } from "../../types";
-import useValueContext from "../../hooks/useValueContext";
-import SelectorColumn from "./SelectorList";
-import { useState, useReducer } from "react";
-
-interface RateProps {
-  /**
-   * If this component is rendererd in a parent that defines a height set this to false.
-   */
-  absoluteHeight?: boolean;
-}
+import { IValue } from '../../types';
 
 interface ICompared {
   id1: string;
@@ -26,10 +16,10 @@ interface IState {
 }
 
 type TAction =
-  | { type: "SWAP_ITEMS"; winnerIdx: number }
-  | { type: "FIND_NEXT" };
+  | { type: 'SWAP_ITEMS'; winnerIdx: number }
+  | { type: 'FIND_NEXT' };
 
-const ratingReducer = (state: IState, action: TAction): IState => {
+export const RatingReducer = (state: IState, action: TAction): IState => {
   const maxIndex = state.sorted.length;
 
   const swapCurrentItems = (winnerIdx: number): [IValue[], boolean] => {
@@ -102,14 +92,14 @@ const ratingReducer = (state: IState, action: TAction): IState => {
     const winnerID = findInCompared(nextItem1.id, nextItem2.id);
 
     if (winnerID) {
-      console.log("SKIPPING:" + nextItem1.title + " " + nextItem2.title);
+      console.log('SKIPPING:' + nextItem1.title + ' ' + nextItem2.title);
       ({ finished, newIndex } = findNewIndex(newIndex, swapped));
     }
     return { finished: finished, newIndex: newIndex };
   };
 
   switch (action.type) {
-    case "SWAP_ITEMS":
+    case 'SWAP_ITEMS':
       const [sorted, swapped] = swapCurrentItems(action.winnerIdx);
       const newCompared = addToCompared(
         state.sorted[state.currentItemsIdx[0]].id,
@@ -124,7 +114,7 @@ const ratingReducer = (state: IState, action: TAction): IState => {
         compared: newCompared,
       };
 
-    case "FIND_NEXT":
+    case 'FIND_NEXT':
       const { finished, newIndex } = findNewIndex(
         state.currentItemsIdx,
         state.swapped
@@ -132,64 +122,3 @@ const ratingReducer = (state: IState, action: TAction): IState => {
       return { ...state, currentItemsIdx: newIndex, finished: finished };
   }
 };
-
-/**
- * Order the selected elements
- */
-const Rate = ({ absoluteHeight = true }: RateProps) => {
-  const { selected } = useValueContext();
-  const [ratingState, dispatchRatingAction] = useReducer(ratingReducer, {
-    sorted: selected,
-    currentItemsIdx: [0, 1],
-    compared: [],
-    swapped: false,
-    finished: false,
-  });
-
-  const handleItemClick = (winnerIdx: number) => {
-    dispatchRatingAction({ type: "SWAP_ITEMS", winnerIdx: winnerIdx });
-    dispatchRatingAction({ type: "FIND_NEXT" });
-  };
-
-  const height = absoluteHeight ? "h-screen" : "";
-  return (
-    <>
-      {true && (
-        <div className="flex flex-grow p-2">
-          <SelectorColumn
-            title="Sorted Values"
-            content={ratingState.sorted}
-            multiCol={false}
-            onItemClick={() => {}}
-          ></SelectorColumn>
-        </div>
-      )}
-      {!ratingState.finished && (
-        <div className="flex justify-center flex-grow m-2 rounded bg-primary-700">
-          <div className="flex flex-col items-stretch justify-center p-10 m-20 rounded h-60 bg-primary-600">
-            <div
-              onClick={handleItemClick.bind(
-                null,
-                ratingState.currentItemsIdx[0]
-              )}
-              className="p-4 my-5 text-xl font-bold text-center rounded hover:bg-secondary-400 bg-primary-500"
-            >
-              {ratingState.sorted[ratingState.currentItemsIdx[0]].title}
-            </div>
-            <div
-              onClick={handleItemClick.bind(
-                null,
-                ratingState.currentItemsIdx[1]
-              )}
-              className="p-4 my-5 text-xl font-bold text-center rounded bg-primary-500 hover:bg-secondary-400"
-            >
-              {ratingState.sorted[ratingState.currentItemsIdx[1]].title}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-export default Rate;
