@@ -5,6 +5,7 @@ import {
   ArrowCircleRightIcon,
   ArrowCircleLeftIcon,
 } from '@heroicons/react/solid';
+import { Link } from 'react-router-dom';
 
 type TVariant = 'gridMultiCol' | 'gridOneCol' | 'flex';
 export interface ISelectorColumn {
@@ -12,6 +13,8 @@ export interface ISelectorColumn {
   content: IValue[];
   variant: TVariant;
   navigation?: boolean;
+  nextTarget?: string;
+  prevTarget?: string;
   background?: string;
   onItemClick: (item: IValue) => void;
 }
@@ -53,6 +56,8 @@ const List = ({
   variant,
   onItemClick,
   navigation = false,
+  nextTarget = '/',
+  prevTarget = '/',
   background = '',
 }: ISelectorColumn) => {
   const styles = getStyles();
@@ -60,9 +65,18 @@ const List = ({
   return (
     <div className={styles.container(background)}>
       <div className={styles.header(navigation)}>
-        {navigation && <ArrowCircleLeftIcon className='w-10 h-10' />}
+        {navigation && (
+          <Link to={prevTarget}>
+            <ArrowCircleLeftIcon className='w-10 h-10' />
+          </Link>
+        )}
         <h1 className='font-bold text-center'>{title}</h1>
-        {navigation && <ArrowCircleRightIcon className='w-10 h-10' />}
+        {navigation && (
+          <Link to={nextTarget}>
+            {' '}
+            <ArrowCircleRightIcon className='w-10 h-10' />
+          </Link>
+        )}
       </div>
       <ul className={styles.list(variant)}>
         {content.map((item: IValue) => (

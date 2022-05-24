@@ -34,6 +34,8 @@ const Selector = ({ absoluteHeight = true }: PoolProps) => {
         variant='gridMultiCol'
         onItemClick={handleItemClick}
         navigation={true}
+        nextTarget='/values/rate'
+        prevTarget='/values'
       ></List>
     </div>
   );
