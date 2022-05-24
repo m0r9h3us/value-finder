@@ -1,7 +1,7 @@
-import { IValue } from '../../types';
 import useValueContext from '../../hooks/useValueContext';
 import List from './List';
 import useRatingReducer from '../../hooks/useRatingReducer';
+import { useEffect } from 'react';
 
 interface RateProps {
   /**
@@ -14,13 +14,18 @@ interface RateProps {
  * Order the selected elements
  */
 const Rate = ({ absoluteHeight = true }: RateProps) => {
-  const { selected } = useValueContext();
+  const { selected, setSorted } = useValueContext();
   const [ratingState, dispatchRatingAction] = useRatingReducer(selected);
 
   const handleItemClick = (winnerIdx: number) => {
     dispatchRatingAction({ type: 'SWAP_ITEMS', winnerIdx: winnerIdx });
     dispatchRatingAction({ type: 'FIND_NEXT' });
   };
+
+  const hasFinished = ratingState.finished;
+  useEffect(() => {
+    setSorted(ratingState.sorted);
+  }, [setSorted, hasFinished, ratingState.sorted]);
 
   const hasElements = !(ratingState.sorted.length === 0);
 

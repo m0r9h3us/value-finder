@@ -2,8 +2,34 @@ import useValueContext from '../../hooks/useValueContext';
 import { Link } from 'react-router-dom';
 import List from './List';
 
+const Card = () => {
+  const valCtx = useValueContext();
+  return (
+    <div className='flex flex-col flex-grow-0 items-center p-10 space-y-4 bg-primary-600'>
+      <h1 className='text-lg font-bold'>Know Your Values</h1>
+      <span className='text-center'>
+        You can select values, change your selection and order your values by
+        importance
+      </span>
+
+      <Link to='/values/select' className='p-2 rounded-sm bg-primary-700'>
+        {valCtx.selected.length === 0
+          ? 'Select your Values'
+          : 'Change Selection'}
+      </Link>
+
+      {valCtx.selected.length > 0 && valCtx.sorted.length === 0 && (
+        <Link to='/values/rate' className='p-2 rounded-sm bg-primary-700'>
+          Rate Your Values
+        </Link>
+      )}
+    </div>
+  );
+};
+
 /**
- * Home is the Home Page
+ * Overview is a container that offers the possibility
+ * to select and rate your values and shows the list
  */
 const Overview = () => {
   const valCtx = useValueContext();
@@ -31,28 +57,3 @@ const Overview = () => {
 };
 
 export default Overview;
-
-const Card = () => {
-  const valCtx = useValueContext();
-  return (
-    <div className='flex flex-col flex-grow-0 items-center p-10 space-y-4 bg-primary-600'>
-      <h1 className='text-lg font-bold'>Know Your Values</h1>
-      <span className='text-center'>
-        Knowing which values drive you can help understanding your current state
-        of mind and can also improve your decision making process.
-      </span>
-
-      <Link to='/values/select' className='p-2 rounded-sm bg-primary-700'>
-        {valCtx.selected.length === 0
-          ? 'Select your Values'
-          : 'Change Selection'}
-      </Link>
-
-      {valCtx.selected.length > 0 && valCtx.sorted.length === 0 && (
-        <Link to='/values/rate' className='p-2 rounded-sm bg-primary-700'>
-          Rate Your Values
-        </Link>
-      )}
-    </div>
-  );
-};
