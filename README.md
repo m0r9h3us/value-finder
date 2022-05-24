@@ -1,5 +1,32 @@
 # Value Finder
 
+## Motivation
+
+This Project was created to experiment and test concepts, technologies and structures. And to have some fun. This includes:
+
+- React Basics
+  - useState
+  - useEffect
+  - useReducer
+  - Router
+  - Context
+  - Experimenting on folder and component structures
+  - Creating a "layout" component
+  - custom hooks
+  - ...
+- Tailwindcss
+  - Understanding the basics of component design and css
+  - Mobile First Design
+  - How to get rid of tailwindcss??? I like the approach for its speed and look BUT the mix of style and code makes the tsx code a mess...
+  - Alternative: CSS
+- Storybook
+  - I like the design of components from botton to top storybook seems a good choice for that
+  - However, the mix with tailwind sucks (also because of some bugs)
+
+## Content
+
+You can choose values from a big list and then sort the chosen value by a 1-1 comparison of the chosen values. I implemented it in a way that two values will not be compared twice to reduce the number of iterations.
+
 ## Project Setup Step by Step
 
 - create react app with typscipt template
@@ -7,47 +34,42 @@
 - Add Storybook
 - Configure Storybook to work with tailwind / postcss
 
-    ```javascript
-    const path = require("path");
+  ```javascript
+  const path = require('path');
 
-    module.exports = {
-    stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  module.exports = {
+    stories: [
+      '../src/**/*.stories.mdx',
+      '../src/**/*.stories.@(js|jsx|ts|tsx)',
+    ],
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/preset-create-react-app",
+      '@storybook/addon-links',
+      '@storybook/addon-essentials',
+      '@storybook/preset-create-react-app',
     ],
     webpackFinal: async (config) => {
-        config.module.rules.push({
+      config.module.rules.push({
         test: /\,css&/,
         use: [
-            {
-            loader: "postcss-loader",
+          {
+            loader: 'postcss-loader',
             options: {
-                ident: "postcss",
-                plugins: [require("tailwindcss"), require("autoprefixer")],
+              ident: 'postcss',
+              plugins: [require('tailwindcss'), require('autoprefixer')],
             },
-            },
+          },
         ],
         include: path.resolve(\_\_\_dirname, "../"),
-        });
-        return config;
+        ),
+      });
+      return config;
     },
-    };
-    ```
+  };
+  ```
+
 - Remove padding from storybook
-    ```javascript
-    export const parameters = {
-        layout: 'fullscreen',
-        actions: { argTypesRegex: "^on[A-Z].*" },
-        controls: {
-            matchers: {
-            color: /(background|color)$/i,
-            date: /Date$/,
-            },
-        },
-}
-    ```
+  `javascript export const parameters = { layout: 'fullscreen', actions: { argTypesRegex: "^on[A-Z].*" }, controls: { matchers: { color: /(background|color)$/i, date: /Date$/, }, }, } `
+
 ## Warnings
 
 - Activating JIT breaks styling in Storybook
